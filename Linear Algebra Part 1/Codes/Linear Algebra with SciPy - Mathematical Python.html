@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/ -->
+<html lang="en" class="js json svg checked target dataset details fetch supports csstransforms3d no-ios" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+      
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="https://www.math.ubc.ca/~pwalls/math-python/assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Linear Algebra with SciPy - Mathematical Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/application.30686662.css">
+      
+        <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="./Linear Algebra with SciPy - Mathematical Python_files/modernizr.74668098.js.download"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin="">
+        <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/css">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/extra.css">
+    
+      <link rel="stylesheet" href="./Linear Algebra with SciPy - Mathematical Python_files/googlecode.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-112697872-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async="" src="./Linear Algebra with SciPy - Mathematical Python_files/analytics.js.download"></script>
+      
+    
+    
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax_SVG .MJX-monospace {font-family: monospace}
+.MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+#MathJax_SVG_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_SVG > div {display: inline-block}
+.mjx-svg-href {fill: blue; stroke: blue}
+.MathJax_SVG_Processing {visibility: hidden; position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; display: block!important}
+.MathJax_SVG_Processed {display: none!important}
+.MathJax_SVG_test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.MathJax_SVG_test.mjx-test-display {display: table!important}
+.MathJax_SVG_test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.MathJax_SVG_test.mjx-test-default {display: block!important; clear: both}
+.MathJax_SVG_ex_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.mjx-test-inline .MathJax_SVG_left_box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .MathJax_SVG_right_box {display: inline-block; width: 0; float: right}
+.mjx-test-display .MathJax_SVG_right_box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax_SVG .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="white" data-md-color-accent="indigo" data-md-state=""><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_SVG_Hidden"></div><svg><defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path stroke-width="1" id="MJMATHI-49" d="M43 1Q26 1 26 10Q26 12 29 24Q34 43 39 45Q42 46 54 46H60Q120 46 136 53Q137 53 138 54Q143 56 149 77T198 273Q210 318 216 344Q286 624 286 626Q284 630 284 631Q274 637 213 637H193Q184 643 189 662Q193 677 195 680T209 683H213Q285 681 359 681Q481 681 487 683H497Q504 676 504 672T501 655T494 639Q491 637 471 637Q440 637 407 634Q393 631 388 623Q381 609 337 432Q326 385 315 341Q245 65 245 59Q245 52 255 50T307 46H339Q345 38 345 37T342 19Q338 6 332 0H316Q279 2 179 2Q143 2 113 2T65 2T43 1Z"></path><path stroke-width="1" id="MJMAIN-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path stroke-width="1" id="MJMAIN-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path stroke-width="1" id="MJMATHI-41" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path stroke-width="1" id="MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path stroke-width="1" id="MJMATHI-42" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path><path stroke-width="1" id="MJMAIN-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path stroke-width="1" id="MJMAIN-37" d="M55 458Q56 460 72 567L88 674Q88 676 108 676H128V672Q128 662 143 655T195 646T364 644H485V605L417 512Q408 500 387 472T360 435T339 403T319 367T305 330T292 284T284 230T278 162T275 80Q275 66 275 52T274 28V19Q270 2 255 -10T221 -22Q210 -22 200 -19T179 0T168 40Q168 198 265 368Q285 400 349 489L395 552H302Q128 552 119 546Q113 543 108 522T98 479L95 458V455H55V458Z"></path><path stroke-width="1" id="MJMAIN-5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path><path stroke-width="1" id="MJSZ3-5B" d="M247 -949V1450H516V1388H309V-887H516V-949H247Z"></path><path stroke-width="1" id="MJSZ3-5D" d="M11 1388V1450H280V-949H11V-887H218V1388H11Z"></path><path stroke-width="1" id="MJMAIN-35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path stroke-width="1" id="MJMATHI-4D" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path><path stroke-width="1" id="MJMATHI-54" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path><path stroke-width="1" id="MJMATHI-70" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path stroke-width="1" id="MJMAIN-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path stroke-width="1" id="MJMATHI-3BB" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path><path stroke-width="1" id="MJMAIN-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path stroke-width="1" id="MJMAIN-64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z"></path><path stroke-width="1" id="MJMAIN-65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z"></path><path stroke-width="1" id="MJMAIN-74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z"></path><path stroke-width="1" id="MJMAIN-72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z"></path><path stroke-width="1" id="MJMAIN-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path stroke-width="1" id="MJMATHI-76" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path><path stroke-width="1" id="MJMATHI-77" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path><path stroke-width="1" id="MJMAIN-70" d="M36 -148H50Q89 -148 97 -134V-126Q97 -119 97 -107T97 -77T98 -38T98 6T98 55T98 106Q98 140 98 177T98 243T98 296T97 335T97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 61 434T98 436Q115 437 135 438T165 441T176 442H179V416L180 390L188 397Q247 441 326 441Q407 441 464 377T522 216Q522 115 457 52T310 -11Q242 -11 190 33L182 40V-45V-101Q182 -128 184 -134T195 -145Q216 -148 244 -148H260V-194H252L228 -193Q205 -192 178 -192T140 -191Q37 -191 28 -194H20V-148H36ZM424 218Q424 292 390 347T305 402Q234 402 182 337V98Q222 26 294 26Q345 26 384 80T424 218Z"></path><path stroke-width="1" id="MJMAIN-6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z"></path><path stroke-width="1" id="MJMAIN-6A" d="M98 609Q98 637 116 653T160 669Q183 667 200 652T217 609Q217 579 200 564T158 549Q133 549 116 564T98 609ZM28 -163Q58 -168 64 -168Q124 -168 135 -77Q137 -65 137 141T136 353Q132 371 120 377T72 385H52V408Q52 431 54 431L58 432Q62 432 70 432T87 433T108 434T133 436Q151 437 171 438T202 441T214 442H218V184Q217 -36 217 -59T211 -98Q195 -145 153 -175T58 -205Q9 -205 -23 -179T-55 -117Q-55 -94 -40 -79T-2 -64T36 -79T52 -118Q52 -143 28 -163Z"></path><path stroke-width="1" id="MJMAIN-22C5" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250Z"></path><path stroke-width="1" id="MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="1" id="MJMATHI-6A" d="M297 596Q297 627 318 644T361 661Q378 661 389 651T403 623Q403 595 384 576T340 557Q322 557 310 567T297 596ZM288 376Q288 405 262 405Q240 405 220 393T185 362T161 325T144 293L137 279Q135 278 121 278H107Q101 284 101 286T105 299Q126 348 164 391T252 441Q253 441 260 441T272 442Q296 441 316 432Q341 418 354 401T367 348V332L318 133Q267 -67 264 -75Q246 -125 194 -164T75 -204Q25 -204 7 -183T-12 -137Q-12 -110 7 -91T53 -71Q70 -71 82 -81T95 -112Q95 -148 63 -167Q69 -168 77 -168Q111 -168 139 -140T182 -74L193 -32Q204 11 219 72T251 197T278 308T289 365Q289 372 288 376Z"></path><path stroke-width="1" id="MJMAIN-34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path><path stroke-width="1" id="MJMAIN-38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z"></path></defs></svg></div><div id="MathJax_Message" style="display: none;"></div>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"></path></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#linear-algebra-with-scipy" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header" data-md-state="shadow">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://www.math.ubc.ca/~pwalls/math-python/" title="Mathematical Python" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title" data-md-state="">
+          
+            <span class="md-header-nav__topic" style="width: 713px;">
+              Mathematical Python
+            </span>
+            <span class="md-header-nav__topic" style="width: 713px;">
+              
+                Linear Algebra with SciPy
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/patrickwalls/mathematical-python/" title="Go to repository" class="md-source" data-md-source="github" data-md-state="done">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    patrickwalls/mathematical-python
+  <ul class="md-source__facts"><li class="md-source__fact">147 Stars</li><li class="md-source__fact">59 Forks</li></ul></div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" style="height: 835px;" data-md-state="">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/" title="Mathematical Python" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Mathematical Python
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/patrickwalls/mathematical-python/" title="Go to repository" class="md-source" data-md-source="github" data-md-state="done">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    patrickwalls/mathematical-python
+  <ul class="md-source__facts"><li class="md-source__fact">147 Stars</li><li class="md-source__fact">59 Forks</li></ul></div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Jupyter
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-2">
+        Jupyter
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/jupyter/notebook/" title="Jupyter Notebook" class="md-nav__link">
+      Jupyter Notebook
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/jupyter/markdown/" title="Markdown" class="md-nav__link">
+      Markdown
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/jupyter/latex/" title="LaTeX" class="md-nav__link">
+      LaTeX
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-3">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/numbers/" title="Numbers" class="md-nav__link">
+      Numbers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/variables/" title="Variables" class="md-nav__link">
+      Variables
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/sequences/" title="Sequences" class="md-nav__link">
+      Sequences
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/functions/" title="Functions" class="md-nav__link">
+      Functions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/logic/" title="Logic" class="md-nav__link">
+      Logic
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/loops/" title="Loops" class="md-nav__link">
+      Loops
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/text/" title="Text" class="md-nav__link">
+      Text
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/python/modules-packages/" title="Modules and Packages" class="md-nav__link">
+      Modules and Packages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      SciPy
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-4">
+        SciPy
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/scipy/numpy/" title="NumPy" class="md-nav__link">
+      NumPy
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/scipy/matplotlib/" title="Matplotlib" class="md-nav__link">
+      Matplotlib
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/scipy/scipy/" title="SciPy" class="md-nav__link">
+      SciPy
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Roots and Optimization
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-5">
+        Roots and Optimization
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/roots-optimization/root-finding/" title="Root Finding" class="md-nav__link">
+      Root Finding
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/roots-optimization/bisection/" title="Bisection Method" class="md-nav__link">
+      Bisection Method
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/roots-optimization/secant/" title="Secant Method" class="md-nav__link">
+      Secant Method
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/roots-optimization/newton/" title="Newton&#39;s Method" class="md-nav__link">
+      Newton's Method
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Numerical Integration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-6">
+        Numerical Integration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/integration/integrals/" title="Definite Integrals" class="md-nav__link">
+      Definite Integrals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/integration/riemann-sums/" title="Riemann Sums" class="md-nav__link">
+      Riemann Sums
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/integration/trapezoid-rule/" title="Trapezoid Rule" class="md-nav__link">
+      Trapezoid Rule
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/integration/simpsons-rule/" title="Simpson&#39;s Rule" class="md-nav__link">
+      Simpson's Rule
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/" title="Numerical Differentiation" class="md-nav__link">
+      Numerical Differentiation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked="">
+    
+    <label class="md-nav__link" for="nav-8">
+      Linear Algebra
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: block; overflow: visible;">
+      <label class="md-nav__title" for="nav-8">
+        Linear Algebra
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Linear Algebra with SciPy
+      </label>
+    
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/" title="Linear Algebra with SciPy" class="md-nav__link md-nav__link--active">
+      Linear Algebra with SciPy
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#numpy-arrays" class="md-nav__link">
+    NumPy Arrays
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#array-attributes" class="md-nav__link">
+    Array Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-operations-and-functions" class="md-nav__link">
+    Matrix Operations and Functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#arithmetic-operations" class="md-nav__link">
+    Arithmetic Operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-multiplication" class="md-nav__link">
+    Matrix Multiplication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-powers" class="md-nav__link">
+    Matrix Powers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#tranpose" class="md-nav__link">
+    Tranpose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#inverse" class="md-nav__link">
+    Inverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#trace" class="md-nav__link">
+    Trace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#norm" class="md-nav__link">
+    Norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#determinant" class="md-nav__link">
+    Determinant
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#dot-product" class="md-nav__link">
+    Dot Product
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#characteristic-polynomials-and-cayley-hamilton-theorem" class="md-nav__link">
+    Characteristic Polynomials and Cayley-Hamilton Theorem
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#projections" class="md-nav__link">
+    Projections
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#exercises" class="md-nav__link">
+    Exercises
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/solving-linear-systems/" title="Solving Linear Systems" class="md-nav__link">
+      Solving Linear Systems
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/eigenvalues-eigenvectors/" title="Eigenvalues and Eigenvectors" class="md-nav__link">
+      Eigenvalues and Eigenvectors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/applications/" title="Applications" class="md-nav__link">
+      Applications
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      Differential Equations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1" style="display: none; overflow: hidden;">
+      <label class="md-nav__title" for="nav-9">
+        Differential Equations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix="">
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differential-equations/first-order/" title="First Order Equations" class="md-nav__link">
+      First Order Equations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differential-equations/second-order/" title="Second Order Equations" class="md-nav__link">
+      Second Order Equations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differential-equations/scipy-ode-solvers/" title="SciPy ODE Solvers" class="md-nav__link">
+      SciPy ODE Solvers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differential-equations/systems/" title="Systems of ODEs" class="md-nav__link">
+      Systems of ODEs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/differential-equations/applications/" title="Applications" class="md-nav__link">
+      Applications
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="https://www.math.ubc.ca/~pwalls/math-python/problems/problems/" title="Problems" class="md-nav__link">
+      Problems
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" style="height: 835px;" data-md-state="">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#numpy-arrays" class="md-nav__link" data-md-state="">
+    NumPy Arrays
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#array-attributes" class="md-nav__link" data-md-state="">
+    Array Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-operations-and-functions" class="md-nav__link" data-md-state="">
+    Matrix Operations and Functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#arithmetic-operations" class="md-nav__link" data-md-state="">
+    Arithmetic Operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-multiplication" class="md-nav__link" data-md-state="">
+    Matrix Multiplication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#matrix-powers" class="md-nav__link" data-md-state="">
+    Matrix Powers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#tranpose" class="md-nav__link" data-md-state="">
+    Tranpose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#inverse" class="md-nav__link" data-md-state="">
+    Inverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#trace" class="md-nav__link" data-md-state="">
+    Trace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#norm" class="md-nav__link" data-md-state="">
+    Norm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#determinant" class="md-nav__link" data-md-state="">
+    Determinant
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#dot-product" class="md-nav__link" data-md-state="">
+    Dot Product
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#examples" class="md-nav__link" data-md-state="">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#characteristic-polynomials-and-cayley-hamilton-theorem" class="md-nav__link" data-md-state="">
+    Characteristic Polynomials and Cayley-Hamilton Theorem
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#projections" class="md-nav__link" data-md-state="">
+    Projections
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/linear-algebra-scipy/#exercises" class="md-nav__link">
+    Exercises
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/patrickwalls/mathematical-python/edit/master/docs/linear-algebra/linear-algebra-scipy.md" title="Edit this page" class="md-icon md-content__icon"></a>
+                
+                
+                <h1 id="linear-algebra-with-scipy">Linear Algebra with SciPy</h1>
+<p>The main Python package for linear algebra is the SciPy subpackage <a href="https://docs.scipy.org/doc/scipy/reference/linalg.html"><code class="nohighlight">scipy.linalg</code></a> which builds on NumPy. Let's import both packages:</p>
+<pre id="__code_0"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_0 pre, #__code_0 code"><span class="md-clipboard__message"></span></button><code class="python hljs"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> scipy.linalg <span class="hljs-keyword">as</span> la
+</code></pre>
+
+<h2 id="numpy-arrays">NumPy Arrays</h2>
+<p>Let's begin with a quick review of <a href="https://www.math.ubc.ca/~pwalls/math-python/scipy/numpy/">NumPy arrays</a>. We can think of a 1D NumPy array as a list of numbers. We can think of a 2D NumPy array as a matrix. And we can think of a 3D array as a cube of numbers.
+When we select a row or column from a 2D NumPy array, the result is a 1D NumPy array (called a <a href="https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#basic-slicing-and-indexing">slice</a>). This is different from MATLAB where when you select a column from a matrix it's returned as a column vector which is a 2D MATLAB matrix.</p>
+<p>It can get a bit confusing and so we need to keep track of the shape, size and dimension of our NumPy arrays.</p>
+<h3 id="array-attributes">Array Attributes</h3>
+<p>Create a 1D (one-dimensional) NumPy array and verify its dimensions, shape and size.</p>
+<pre id="__code_1"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_1 pre, #__code_1 code"><span class="md-clipboard__message"></span></button><code class="python hljs">a = np.array([<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">-2</span>,<span class="hljs-number">1</span>])
+print(a)
+</code></pre>
+
+<pre id="__code_2"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_2 pre, #__code_2 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[ 1  3 -2  1]
+</code></pre>
+<p>Verify the number of dimensions:</p>
+<pre id="__code_3"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_3 pre, #__code_3 code"><span class="md-clipboard__message"></span></button><code class="python hljs">a.ndim
+</code></pre>
+
+<pre id="__code_4"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_4 pre, #__code_4 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">1
+</code></pre>
+<p>Verify the shape of the array:</p>
+<pre id="__code_5"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_5 pre, #__code_5 code"><span class="md-clipboard__message"></span></button><code class="python hljs">a.shape
+</code></pre>
+
+<pre id="__code_6"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_6 pre, #__code_6 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">(4,)
+</code></pre>
+<p>The shape of an array is returned as a <a href="https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences">Python tuple</a>. The output in the cell above is a tuple of length 1. And we verify the size of the array (ie. the total number of entries in the array):</p>
+<pre id="__code_7"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_7 pre, #__code_7 code"><span class="md-clipboard__message"></span></button><code class="python hljs">a.size
+</code></pre>
+
+<pre id="__code_8"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_8 pre, #__code_8 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">4
+</code></pre>
+<p>Create a 2D (two-dimensional) NumPy array (ie. matrix):</p>
+<pre id="__code_9"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_9 pre, #__code_9 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">7</span>],[<span class="hljs-number">-1</span>,<span class="hljs-number">5</span>]])
+print(M)
+</code></pre>
+
+<pre id="__code_10"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_10 pre, #__code_10 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 1  2]
+ [ 3  7]
+ [-1  5]]
+</code></pre>
+<p>Verify the number of dimensions:</p>
+<pre id="__code_11"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_11 pre, #__code_11 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M.ndim
+</code></pre>
+
+<pre id="__code_12"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_12 pre, #__code_12 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">2
+</code></pre>
+<p>Verify the shape of the array:</p>
+<pre id="__code_13"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_13 pre, #__code_13 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M.shape
+</code></pre>
+
+<pre id="__code_14"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_14 pre, #__code_14 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">(3, 2)
+</code></pre>
+<p>Finally, verify the total number of entries in the array:</p>
+<pre id="__code_15"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_15 pre, #__code_15 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M.size
+</code></pre>
+
+<pre id="__code_16"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_16 pre, #__code_16 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">6
+</code></pre>
+<p>Select a row or column from a 2D NumPy array and we get a 1D array:</p>
+<pre id="__code_17"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_17 pre, #__code_17 code"><span class="md-clipboard__message"></span></button><code class="python hljs">col = M[:,<span class="hljs-number">1</span>] 
+print(col)
+</code></pre>
+
+<pre id="__code_18"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_18 pre, #__code_18 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[2 7 5]
+</code></pre>
+<p>Verify the number of dimensions of the slice:</p>
+<pre id="__code_19"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_19 pre, #__code_19 code"><span class="md-clipboard__message"></span></button><code class="python hljs">col.ndim
+</code></pre>
+
+<pre id="__code_20"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_20 pre, #__code_20 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">1
+</code></pre>
+<p>Verify the shape and size of the slice:</p>
+<pre id="__code_21"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_21 pre, #__code_21 code"><span class="md-clipboard__message"></span></button><code class="python hljs">col.shape
+</code></pre>
+
+<pre id="__code_22"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_22 pre, #__code_22 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">(3,)
+</code></pre>
+<pre id="__code_23"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_23 pre, #__code_23 code"><span class="md-clipboard__message"></span></button><code class="python hljs">col.size
+</code></pre>
+
+<pre id="__code_24"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_24 pre, #__code_24 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">3
+</code></pre>
+<p>When we select a row of column from a 2D NumPy array, the result is a 1D NumPy array. However, we may want to select a column as a 2D column vector. This requires us to use the <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.reshape.html">reshape</a> method.</p>
+<p>For example, create a 2D column vector from the 1D slice selected from the matrix <code class="nohighlight">M</code> above:</p>
+<pre id="__code_25"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_25 pre, #__code_25 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(col)
+</code></pre>
+
+<pre id="__code_26"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_26 pre, #__code_26 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[2 7 5]
+</code></pre>
+<pre id="__code_27"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_27 pre, #__code_27 code"><span class="md-clipboard__message"></span></button><code class="python hljs">column = np.array([<span class="hljs-number">2</span>,<span class="hljs-number">7</span>,<span class="hljs-number">5</span>]).reshape(<span class="hljs-number">3</span>,<span class="hljs-number">1</span>)
+print(column)
+</code></pre>
+
+<pre id="__code_28"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_28 pre, #__code_28 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[2]
+ [7]
+ [5]]
+</code></pre>
+<p>Verify the dimensions, shape and size of the array:</p>
+<pre id="__code_29"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_29 pre, #__code_29 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(<span class="hljs-string">'Dimensions:'</span>, column.ndim)
+print(<span class="hljs-string">'Shape:'</span>, column.shape)
+print(<span class="hljs-string">'Size:'</span>, column.size)
+</code></pre>
+
+<pre id="__code_30"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_30 pre, #__code_30 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">Dimensions: 2
+Shape: (3, 1)
+Size: 3
+</code></pre>
+<p>The variables <code class="nohighlight">col</code> and <code class="nohighlight">column</code> are different types of objects even though they have the "same" data.</p>
+<pre id="__code_31"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_31 pre, #__code_31 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(col)
+</code></pre>
+
+<pre id="__code_32"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_32 pre, #__code_32 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[2 7 5]
+</code></pre>
+<pre id="__code_33"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_33 pre, #__code_33 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(<span class="hljs-string">'Dimensions:'</span>,col.ndim)
+print(<span class="hljs-string">'Shape:'</span>,col.shape)
+print(<span class="hljs-string">'Size:'</span>,col.size)
+</code></pre>
+
+<pre id="__code_34"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_34 pre, #__code_34 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">Dimensions: 1
+Shape: (3,)
+Size: 3
+</code></pre>
+<h2 id="matrix-operations-and-functions">Matrix Operations and Functions</h2>
+<h3 id="arithmetic-operations">Arithmetic Operations</h3>
+<p>Recall that arithmetic <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/scipy/numpy/#operations-and-functions">array operations</a> <code class="nohighlight">+</code>, <code class="nohighlight">-</code>, <code class="nohighlight">/</code>, <code class="nohighlight">*</code> and <code class="nohighlight">**</code> are performed elementwise on NumPy arrays. Let's create a NumPy array and do some computations:</p>
+<pre id="__code_35"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_35 pre, #__code_35 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M = np.array([[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">-1</span>,<span class="hljs-number">5</span>]])
+print(M)
+</code></pre>
+
+<pre id="__code_36"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_36 pre, #__code_36 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 3  4]
+ [-1  5]]
+</code></pre>
+<pre id="__code_37"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_37 pre, #__code_37 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M * M
+</code></pre>
+
+<pre id="__code_38"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_38 pre, #__code_38 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[ 9, 16],
+       [ 1, 25]])
+</code></pre>
+<h3 id="matrix-multiplication">Matrix Multiplication</h3>
+<p>We use the <code class="nohighlight">@</code> operator to do matrix multiplication with NumPy arrays:</p>
+<pre id="__code_39"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_39 pre, #__code_39 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M @ M
+</code></pre>
+
+<pre id="__code_40"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_40 pre, #__code_40 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[ 5, 32],
+       [-8, 21]])
+</code></pre>
+<p>Let's compute <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.428ex" height="2.16ex" viewBox="0 -789 6211.9 929.9" role="img" focusable="false" style="vertical-align: -0.327ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMAIN-32" x="0" y="0"></use><use href="#MJMATHI-49" x="500" y="0"></use><use href="#MJMAIN-2B" x="1227" y="0"></use><use href="#MJMAIN-33" x="2227" y="0"></use><use href="#MJMATHI-41" x="2728" y="0"></use><use href="#MJMAIN-2212" x="3701" y="0"></use><use href="#MJMATHI-41" x="4701" y="0"></use><use href="#MJMATHI-42" x="5452" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2</mn><mi>I</mi><mo>+</mo><mn>3</mn><mi>A</mi><mo>−</mo><mi>A</mi><mi>B</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">2I + 3A - AB</script> for</p>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_SVG_Display" style="text-align: center;"><span class="MathJax_SVG" id="MathJax-Element-2-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mtable rowspacing=&quot;4pt&quot; columnspacing=&quot;1em&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;7&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mtable rowspacing=&quot;4pt&quot; columnspacing=&quot;1em&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;5&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="29.903ex" height="5.923ex" viewBox="0 -1529.8 12874.9 2550.3" role="img" focusable="false" style="vertical-align: -2.37ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use><use href="#MJMAIN-3D" x="1028" y="0"></use><g transform="translate(2084,0)"><use href="#MJSZ3-5B"></use><g transform="translate(695,0)"><g transform="translate(-17,0)"><use href="#MJMAIN-31" x="389" y="650"></use><g transform="translate(0,-750)"><use href="#MJMAIN-2212" x="0" y="0"></use><use href="#MJMAIN-31" x="778" y="0"></use></g></g><g transform="translate(2262,0)"><use href="#MJMAIN-33" x="0" y="650"></use><use href="#MJMAIN-37" x="0" y="-750"></use></g></g><use href="#MJSZ3-5D" x="3625" y="-1"></use></g><use href="#MJMATHI-42" x="7405" y="0"></use><use href="#MJMAIN-3D" x="8442" y="0"></use><g transform="translate(9499,0)"><use href="#MJSZ3-5B"></use><g transform="translate(695,0)"><g transform="translate(-17,0)"><use href="#MJMAIN-35" x="0" y="650"></use><use href="#MJMAIN-31" x="0" y="-750"></use></g><g transform="translate(1484,0)"><use href="#MJMAIN-32" x="0" y="650"></use><use href="#MJMAIN-32" x="0" y="-750"></use></g></g><use href="#MJSZ3-5D" x="2847" y="-1"></use></g></g></svg><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>A</mi><mo>=</mo><mrow><mo>[</mo><mtable rowspacing="4pt" columnspacing="1em"><mtr><mtd><mn>1</mn></mtd><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mo>−</mo><mn>1</mn></mtd><mtd><mn>7</mn></mtd></mtr></mtable><mo>]</mo></mrow><mtext>&nbsp;</mtext><mtext>&nbsp;</mtext><mtext>&nbsp;</mtext><mtext>&nbsp;</mtext><mi>B</mi><mo>=</mo><mrow><mo>[</mo><mtable rowspacing="4pt" columnspacing="1em"><mtr><mtd><mn>5</mn></mtd><mtd><mn>2</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr></mtable><mo>]</mo></mrow></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-2">
+A = \begin{bmatrix}
+1 & 3 \\
+-1 & 7
+\end{bmatrix}
+\ \ \ \
+B = \begin{bmatrix}
+5 & 2 \\
+1 & 2
+\end{bmatrix}
+</script></p>
+<p>and <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-3-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.172ex" height="1.945ex" viewBox="0 -742.7 504.5 837.3" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-49" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi></math></span></span><script type="math/tex" id="MathJax-Element-3">I</script> is the identity matrix of size 2:</p>
+<pre id="__code_41"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_41 pre, #__code_41 code"><span class="md-clipboard__message"></span></button><code class="python hljs">A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">-1</span>,<span class="hljs-number">7</span>]])
+print(A)
+</code></pre>
+
+<pre id="__code_42"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_42 pre, #__code_42 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 1  3]
+ [-1  7]]
+</code></pre>
+<pre id="__code_43"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_43 pre, #__code_43 code"><span class="md-clipboard__message"></span></button><code class="python hljs">B = np.array([[<span class="hljs-number">5</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]])
+print(B)
+</code></pre>
+
+<pre id="__code_44"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_44 pre, #__code_44 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[5 2]
+ [1 2]]
+</code></pre>
+<pre id="__code_45"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_45 pre, #__code_45 code"><span class="md-clipboard__message"></span></button><code class="python hljs">I = np.eye(<span class="hljs-number">2</span>)
+print(I)
+</code></pre>
+
+<pre id="__code_46"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_46 pre, #__code_46 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[1. 0.]
+ [0. 1.]]
+</code></pre>
+<pre id="__code_47"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_47 pre, #__code_47 code"><span class="md-clipboard__message"></span></button><code class="python hljs"><span class="hljs-number">2</span>*I + <span class="hljs-number">3</span>*A - A@B
+</code></pre>
+
+<pre id="__code_48"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_48 pre, #__code_48 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-3.,  1.],
+       [-5., 11.]])
+</code></pre>
+<h3 id="matrix-powers">Matrix Powers</h3>
+<p>There's no symbol for matrix powers and so we must import the function <code class="nohighlight">matrix_power</code> from the subpackage <code class="nohighlight">numpy.linalg</code>.</p>
+<pre id="__code_49"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_49 pre, #__code_49 code"><span class="md-clipboard__message"></span></button><code class="python hljs"><span class="hljs-keyword">from</span> numpy.linalg <span class="hljs-keyword">import</span> matrix_power <span class="hljs-keyword">as</span> mpow
+</code></pre>
+
+<pre id="__code_50"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_50 pre, #__code_50 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M = np.array([[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>],[<span class="hljs-number">-1</span>,<span class="hljs-number">5</span>]])
+print(M)
+</code></pre>
+
+<pre id="__code_51"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_51 pre, #__code_51 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 3  4]
+ [-1  5]]
+</code></pre>
+<pre id="__code_52"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_52 pre, #__code_52 code"><span class="md-clipboard__message"></span></button><code class="python hljs">mpow(M,<span class="hljs-number">2</span>)
+</code></pre>
+
+<pre id="__code_53"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_53 pre, #__code_53 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[ 5, 32],
+       [-8, 21]])
+</code></pre>
+<pre id="__code_54"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_54 pre, #__code_54 code"><span class="md-clipboard__message"></span></button><code class="python hljs">mpow(M,<span class="hljs-number">5</span>)
+</code></pre>
+
+<pre id="__code_55"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_55 pre, #__code_55 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-1525,  3236],
+       [ -809,    93]])
+</code></pre>
+<p>Compare with the matrix multiplcation operator:</p>
+<pre id="__code_56"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_56 pre, #__code_56 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M @ M @ M @ M @ M
+</code></pre>
+
+<pre id="__code_57"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_57 pre, #__code_57 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-1525,  3236],
+       [ -809,    93]])
+</code></pre>
+<pre id="__code_58"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_58 pre, #__code_58 code"><span class="md-clipboard__message"></span></button><code class="python hljs">mpow(M,<span class="hljs-number">3</span>)
+</code></pre>
+
+<pre id="__code_59"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_59 pre, #__code_59 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-17, 180],
+       [-45,  73]])
+</code></pre>
+<pre id="__code_60"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_60 pre, #__code_60 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M @ M @ M
+</code></pre>
+
+<pre id="__code_61"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_61 pre, #__code_61 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-17, 180],
+       [-45,  73]])
+</code></pre>
+<h3 id="tranpose">Tranpose</h3>
+<p>We can take the transpose with <code class="nohighlight">.T</code> attribute:</p>
+<pre id="__code_62"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_62 pre, #__code_62 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(M)
+</code></pre>
+
+<pre id="__code_63"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_63 pre, #__code_63 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 3  4]
+ [-1  5]]
+</code></pre>
+<pre id="__code_64"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_64 pre, #__code_64 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(M.T)
+</code></pre>
+
+<pre id="__code_65"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_65 pre, #__code_65 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[ 3 -1]
+ [ 4  5]]
+</code></pre>
+<p>Notice that <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-4-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;M&lt;/mi&gt;&lt;msup&gt;&lt;mi&gt;M&lt;/mi&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;/msup&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="6.33ex" height="2.375ex" viewBox="0 -927.9 2725.5 1022.5" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-4D" x="0" y="0"></use><g transform="translate(1051,0)"><use href="#MJMATHI-4D" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMATHI-54" x="1521" y="513"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>M</mi><msup><mi>M</mi><mi>T</mi></msup></math></span></span><script type="math/tex" id="MathJax-Element-4">M M^T</script> is a symmetric matrix:</p>
+<pre id="__code_66"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_66 pre, #__code_66 code"><span class="md-clipboard__message"></span></button><code class="python hljs">M @ M.T
+</code></pre>
+
+<pre id="__code_67"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_67 pre, #__code_67 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[25, 17],
+       [17, 26]])
+</code></pre>
+<h3 id="inverse">Inverse</h3>
+<p>We can find the inverse using the function <code class="nohighlight">scipy.linalg.inv</code>:</p>
+<pre id="__code_68"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_68 pre, #__code_68 code"><span class="md-clipboard__message"></span></button><code class="python hljs">A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]])
+print(A)
+</code></pre>
+
+<pre id="__code_69"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_69 pre, #__code_69 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[1 2]
+ [3 4]]
+</code></pre>
+<pre id="__code_70"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_70 pre, #__code_70 code"><span class="md-clipboard__message"></span></button><code class="python hljs">la.inv(A)
+</code></pre>
+
+<pre id="__code_71"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_71 pre, #__code_71 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[-2. ,  1. ],
+       [ 1.5, -0.5]])
+</code></pre>
+<h3 id="trace">Trace</h3>
+<p>We can find the trace of a matrix using the function <code class="nohighlight">numpy.trace</code>:</p>
+<pre id="__code_72"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_72 pre, #__code_72 code"><span class="md-clipboard__message"></span></button><code class="python hljs">np.trace(A)
+</code></pre>
+
+<pre id="__code_73"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_73 pre, #__code_73 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">5
+</code></pre>
+<h3 id="norm">Norm</h3>
+<p><em>Under construction</em></p>
+<h3 id="determinant">Determinant</h3>
+<p>We find the determinant using the function <code class="nohighlight">scipy.linalg.det</code>:</p>
+<pre id="__code_74"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_74 pre, #__code_74 code"><span class="md-clipboard__message"></span></button><code class="python hljs">A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]])
+print(A)
+</code></pre>
+
+<pre id="__code_75"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_75 pre, #__code_75 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[1 2]
+ [3 4]]
+</code></pre>
+<pre id="__code_76"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_76 pre, #__code_76 code"><span class="md-clipboard__message"></span></button><code class="python hljs">la.det(A)
+</code></pre>
+
+<pre id="__code_77"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_77 pre, #__code_77 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">-2.0
+</code></pre>
+<h3 id="dot-product">Dot Product</h3>
+<p><em>Under construction</em></p>
+<h2 id="examples">Examples</h2>
+<h3 id="characteristic-polynomials-and-cayley-hamilton-theorem">Characteristic Polynomials and Cayley-Hamilton Theorem</h3>
+<p>The characteristic polynomial of a 2 by 2 square matrix <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-5-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.743ex" height="2.056ex" viewBox="0 -790.4 750.5 885.2" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math></span></span><script type="math/tex" id="MathJax-Element-5">A</script> is</p>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_SVG_Display" style="text-align: center;"><span class="MathJax_SVG" id="MathJax-Element-6-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;&amp;#x03BB;&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo movablelimits=&quot;true&quot; form=&quot;prefix&quot;&gt;det&lt;/mo&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;&amp;#x03BB;&lt;/mi&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;&amp;#x03BB;&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;t&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;r&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mi&gt;&amp;#x03BB;&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;d&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;e&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;t&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="45.831ex" height="3.02ex" viewBox="-38.5 -974.2 19732.5 1300.3" role="img" focusable="false" style="vertical-align: -0.757ex; margin-left: -0.089ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-70" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMATHI-41" x="712" y="-230"></use><use href="#MJMAIN-28" x="1134" y="0"></use><use href="#MJMATHI-3BB" x="1523" y="0"></use><use href="#MJMAIN-29" x="2107" y="0"></use><use href="#MJMAIN-3D" x="2774" y="0"></use><g transform="translate(3830,0)"><use href="#MJMAIN-64"></use><use href="#MJMAIN-65" x="556" y="0"></use><use href="#MJMAIN-74" x="1001" y="0"></use></g><use href="#MJMAIN-28" x="5221" y="0"></use><use href="#MJMATHI-41" x="5610" y="0"></use><use href="#MJMAIN-2212" x="6583" y="0"></use><use href="#MJMATHI-3BB" x="7584" y="0"></use><use href="#MJMATHI-49" x="8167" y="0"></use><use href="#MJMAIN-29" x="8672" y="0"></use><use href="#MJMAIN-3D" x="9339" y="0"></use><g transform="translate(10395,0)"><use href="#MJMATHI-3BB" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMAIN-32" x="825" y="583"></use></g><use href="#MJMAIN-2212" x="11655" y="0"></use><g transform="translate(12656,0)"><use href="#MJMAIN-74" x="0" y="0"></use><use href="#MJMAIN-72" x="389" y="0"></use></g><use href="#MJMAIN-28" x="13438" y="0"></use><use href="#MJMATHI-41" x="13827" y="0"></use><use href="#MJMAIN-29" x="14578" y="0"></use><use href="#MJMATHI-3BB" x="14967" y="0"></use><use href="#MJMAIN-2B" x="15773" y="0"></use><g transform="translate(16774,0)"><use href="#MJMAIN-64" x="0" y="0"></use><use href="#MJMAIN-65" x="556" y="0"></use><use href="#MJMAIN-74" x="1001" y="0"></use></g><use href="#MJMAIN-28" x="18164" y="0"></use><use href="#MJMATHI-41" x="18554" y="0"></use><use href="#MJMAIN-29" x="19304" y="0"></use></g></svg><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>p</mi><mi>A</mi></msub><mo stretchy="false">(</mo><mi>λ</mi><mo stretchy="false">)</mo><mo>=</mo><mo movablelimits="true" form="prefix">det</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>λ</mi><mi>I</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><mrow class="MJX-TeXAtom-ORD"><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mi>λ</mi><mo>+</mo><mrow class="MJX-TeXAtom-ORD"><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-6">
+p_A(\lambda) = \det(A - \lambda I) = \lambda^2 - \mathrm{tr}(A) \lambda + \mathrm{det}(A)
+</script></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Cayley%E2%80%93Hamilton_theorem">Cayley-Hamilton Theorem</a> states that any square matrix satisfies its characteristic polynomial. For a matrix <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-7-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.743ex" height="2.052ex" viewBox="0 -789 750.5 883.6" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math></span></span><script type="math/tex" id="MathJax-Element-7">A</script> of size 2, this means that</p>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_SVG_Display" style="text-align: center;"><span class="MathJax_SVG" id="MathJax-Element-8-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;t&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;r&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;d&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;e&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;t&lt;/mi&gt;&lt;/mrow&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="37.179ex" height="3.02ex" viewBox="-38.5 -974.2 16007.6 1300.3" role="img" focusable="false" style="vertical-align: -0.757ex; margin-left: -0.089ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-70" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMATHI-41" x="712" y="-230"></use><use href="#MJMAIN-28" x="1134" y="0"></use><use href="#MJMATHI-41" x="1523" y="0"></use><use href="#MJMAIN-29" x="2274" y="0"></use><use href="#MJMAIN-3D" x="2941" y="0"></use><g transform="translate(3997,0)"><use href="#MJMATHI-41" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMAIN-32" x="1061" y="583"></use></g><use href="#MJMAIN-2212" x="5424" y="0"></use><g transform="translate(6425,0)"><use href="#MJMAIN-74" x="0" y="0"></use><use href="#MJMAIN-72" x="389" y="0"></use></g><use href="#MJMAIN-28" x="7207" y="0"></use><use href="#MJMATHI-41" x="7596" y="0"></use><use href="#MJMAIN-29" x="8347" y="0"></use><use href="#MJMATHI-41" x="8736" y="0"></use><use href="#MJMAIN-2B" x="9709" y="0"></use><g transform="translate(10710,0)"><use href="#MJMAIN-64" x="0" y="0"></use><use href="#MJMAIN-65" x="556" y="0"></use><use href="#MJMAIN-74" x="1001" y="0"></use></g><use href="#MJMAIN-28" x="12100" y="0"></use><use href="#MJMATHI-41" x="12490" y="0"></use><use href="#MJMAIN-29" x="13240" y="0"></use><use href="#MJMATHI-49" x="13630" y="0"></use><use href="#MJMAIN-3D" x="14412" y="0"></use><use href="#MJMAIN-30" x="15468" y="0"></use></g></svg><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>p</mi><mi>A</mi></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>A</mi><mn>2</mn></msup><mo>−</mo><mrow class="MJX-TeXAtom-ORD"><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi></mrow><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mi>A</mi><mo>+</mo><mrow class="MJX-TeXAtom-ORD"><mi mathvariant="normal">d</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi></mrow><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mi>I</mi><mo>=</mo><mn>0</mn></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-8">
+p_A(A) = A^2 - \mathrm{tr}(A) A + \mathrm{det}(A) I = 0
+</script></p>
+<p>Let's verify the Cayley-Hamilton Theorem for a few different matrices.</p>
+<pre id="__code_78"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_78 pre, #__code_78 code"><span class="md-clipboard__message"></span></button><code class="python hljs">print(A)
+</code></pre>
+
+<pre id="__code_79"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_79 pre, #__code_79 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[1 2]
+ [3 4]]
+</code></pre>
+<pre id="__code_80"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_80 pre, #__code_80 code"><span class="md-clipboard__message"></span></button><code class="python hljs">trace_A = np.trace(A)
+det_A = la.det(A)
+I = np.eye(<span class="hljs-number">2</span>)
+A @ A - trace_A * A + det_A * I
+</code></pre>
+
+<pre id="__code_81"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_81 pre, #__code_81 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[0., 0.],
+       [0., 0.]])
+</code></pre>
+<p>Let's do this again for some random matrices:</p>
+<pre id="__code_82"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_82 pre, #__code_82 code"><span class="md-clipboard__message"></span></button><code class="python hljs">N = np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>,[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>])
+print(N)
+</code></pre>
+
+<pre id="__code_83"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_83 pre, #__code_83 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">[[1 9]
+ [4 3]]
+</code></pre>
+<pre id="__code_84"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_84 pre, #__code_84 code"><span class="md-clipboard__message"></span></button><code class="python hljs">trace_N = np.trace(N)
+det_N = la.det(N)
+I = np.eye(<span class="hljs-number">2</span>)
+N @ N - trace_N * N + det_N * I
+</code></pre>
+
+<pre id="__code_85"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_85 pre, #__code_85 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([[0., 0.],
+       [0., 0.]])
+</code></pre>
+<h3 id="projections">Projections</h3>
+<p>The formula to project a vector <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-9-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.128ex" height="1.407ex" viewBox="0 -511.3 485.5 605.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-76" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math></span></span><script type="math/tex" id="MathJax-Element-9">v</script> onto a vector <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-10-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.664ex" height="1.407ex" viewBox="0 -511.3 716.5 605.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-77" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi></math></span></span><script type="math/tex" id="MathJax-Element-10">w</script> is</p>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_SVG_Display" style="text-align: center;"><span class="MathJax_SVG" id="MathJax-Element-11-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;p&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;r&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;o&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;j&lt;/mi&gt;&lt;/mrow&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mo&gt;&amp;#x22C5;&lt;/mo&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mo&gt;&amp;#x22C5;&lt;/mo&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="19.03ex" height="4.641ex" viewBox="0 -1207.9 8193.6 1998.3" role="img" focusable="false" style="vertical-align: -1.836ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMAIN-70" x="0" y="0"></use><use href="#MJMAIN-72" x="556" y="0"></use><use href="#MJMAIN-6F" x="949" y="0"></use><use href="#MJMAIN-6A" x="1449" y="0"></use><use transform="scale(0.707)" href="#MJMATHI-77" x="2483" y="-342"></use><use href="#MJMAIN-28" x="2362" y="0"></use><use href="#MJMATHI-76" x="2752" y="0"></use><use href="#MJMAIN-29" x="3237" y="0"></use><use href="#MJMAIN-3D" x="3904" y="0"></use><g transform="translate(4683,0)"><g transform="translate(397,0)"><rect stroke="none" width="2275" height="60" x="0" y="220"></rect><g transform="translate(175,676)"><use href="#MJMATHI-76" x="0" y="0"></use><use href="#MJMAIN-22C5" x="707" y="0"></use><use href="#MJMATHI-77" x="1208" y="0"></use></g><g transform="translate(60,-686)"><use href="#MJMATHI-77" x="0" y="0"></use><use href="#MJMAIN-22C5" x="938" y="0"></use><use href="#MJMATHI-77" x="1439" y="0"></use></g></g></g><use href="#MJMATHI-77" x="7477" y="0"></use></g></svg><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mrow class="MJX-TeXAtom-ORD"><mi mathvariant="normal">p</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">j</mi></mrow><mi>w</mi></msub><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>v</mi><mo>⋅</mo><mi>w</mi></mrow><mrow><mi>w</mi><mo>⋅</mo><mi>w</mi></mrow></mfrac><mi>w</mi></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-11">
+\mathrm{proj}_w(v) = \frac{v \cdot w}{w \cdot w} w
+</script></p>
+<p>Let's a function called <code class="nohighlight">proj</code> which computes the projection <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-12-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.128ex" height="1.407ex" viewBox="0 -511.3 485.5 605.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-76" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>v</mi></math></span></span><script type="math/tex" id="MathJax-Element-12">v</script> onto <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-13-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.664ex" height="1.407ex" viewBox="0 -511.3 716.5 605.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-77" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi></math></span></span><script type="math/tex" id="MathJax-Element-13">w</script>.</p>
+<pre id="__code_86"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_86 pre, #__code_86 code"><span class="md-clipboard__message"></span></button><code class="python hljs"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">proj</span><span class="hljs-params">(v,w)</span>:</span>
+    <span class="hljs-string">'''Project vector v onto w.'''</span>
+    v = np.array(v)
+    w = np.array(w)
+    <span class="hljs-keyword">return</span> np.sum(v * w)/np.sum(w * w) * w   <span class="hljs-comment"># or (v @ w)/(w @ w) * w</span>
+</code></pre>
+
+<pre id="__code_87"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_87 pre, #__code_87 code"><span class="md-clipboard__message"></span></button><code class="python hljs">proj([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>])
+</code></pre>
+
+<pre id="__code_88"><button class="md-clipboard" title="Copy to clipboard" data-clipboard-target="#__code_88 pre, #__code_88 code"><span class="md-clipboard__message"></span></button><code class="nohighlight">array([2., 2., 2.])
+</code></pre>
+<h2 id="exercises">Exercises</h2>
+<ol>
+<li>Write a function which takes an input parameter <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-14-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1.743ex" height="2.056ex" viewBox="0 -790.4 750.5 885.2" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi></math></span></span><script type="math/tex" id="MathJax-Element-14">A</script>, <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-15-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="0.802ex" height="1.948ex" viewBox="0 -744.1 345.5 838.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-69" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math></span></span><script type="math/tex" id="MathJax-Element-15">i</script> and <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-16-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="0.985ex" height="2.379ex" viewBox="-11.5 -744.1 424 1024.3" role="img" focusable="false" style="vertical-align: -0.651ex; margin-left: -0.027ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-6A" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>j</mi></math></span></span><script type="math/tex" id="MathJax-Element-16">j</script> and returns the dot product of the <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-17-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="0.802ex" height="1.948ex" viewBox="0 -744.1 345.5 838.8" role="img" focusable="false" style="vertical-align: -0.22ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-69" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math></span></span><script type="math/tex" id="MathJax-Element-17">i</script>th and <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-18-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="0.985ex" height="2.379ex" viewBox="-11.5 -744.1 424 1024.3" role="img" focusable="false" style="vertical-align: -0.651ex; margin-left: -0.027ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-6A" x="0" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>j</mi></math></span></span><script type="math/tex" id="MathJax-Element-18">j</script>th row (indexing starts at 0).</li>
+<li>Compute the matrix equation <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-19-Frame" tabindex="0" style="font-size: 100%; display: inline-block; position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;msup&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;/math&gt;" role="presentation"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.34ex" height="2.482ex" viewBox="0 -927.9 6174.3 1068.8" role="img" focusable="false" style="vertical-align: -0.327ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use><use href="#MJMATHI-42" x="750" y="0"></use><use href="#MJMAIN-2B" x="1732" y="0"></use><use href="#MJMAIN-32" x="2732" y="0"></use><g transform="translate(3233,0)"><use href="#MJMATHI-42" x="0" y="0"></use><use transform="scale(0.707)" href="#MJMAIN-32" x="1074" y="513"></use></g><use href="#MJMAIN-2212" x="4669" y="0"></use><use href="#MJMATHI-49" x="5669" y="0"></use></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mi>B</mi><mo>+</mo><mn>2</mn><msup><mi>B</mi><mn>2</mn></msup><mo>−</mo><mi>I</mi></math></span></span><script type="math/tex" id="MathJax-Element-19">AB + 2B^2 - I</script> for matrices <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-20-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;A&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mtable rowspacing=&quot;4pt&quot; columnspacing=&quot;1em&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.49ex" height="5.923ex" viewBox="0 -1529.8 6238.9 2550.3" role="img" focusable="false" style="vertical-align: -2.37ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-41" x="0" y="0"></use><use href="#MJMAIN-3D" x="1028" y="0"></use><g transform="translate(2084,0)"><use href="#MJSZ3-5B"></use><g transform="translate(695,0)"><g transform="translate(-17,0)"><use href="#MJMAIN-33" x="389" y="650"></use><g transform="translate(0,-750)"><use href="#MJMAIN-2212" x="0" y="0"></use><use href="#MJMAIN-31" x="778" y="0"></use></g></g><g transform="translate(2262,0)"><use href="#MJMAIN-34" x="0" y="650"></use><use href="#MJMAIN-32" x="0" y="-750"></use></g></g><use href="#MJSZ3-5D" x="3625" y="-1"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>=</mo><mrow><mo>[</mo><mtable rowspacing="4pt" columnspacing="1em"><mtr><mtd><mn>3</mn></mtd><mtd><mn>4</mn></mtd></mtr><mtr><mtd><mo>−</mo><mn>1</mn></mtd><mtd><mn>2</mn></mtd></mtr></mtable><mo>]</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-20">A = \begin{bmatrix} 3 & 4 \\ -1 & 2 \end{bmatrix}</script> and <span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax_SVG" id="MathJax-Element-21-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;B&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mtable rowspacing=&quot;4pt&quot; columnspacing=&quot;1em&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;5&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mn&gt;8&lt;/mn&gt;&lt;/mtd&gt;&lt;mtd&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="font-size: 100%; display: inline-block; position: relative;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="14.511ex" height="5.923ex" viewBox="0 -1529.8 6247.9 2550.3" role="img" focusable="false" style="vertical-align: -2.37ex;" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use href="#MJMATHI-42" x="0" y="0"></use><use href="#MJMAIN-3D" x="1037" y="0"></use><g transform="translate(2093,0)"><use href="#MJSZ3-5B"></use><g transform="translate(695,0)"><g transform="translate(-17,0)"><use href="#MJMAIN-35" x="0" y="650"></use><use href="#MJMAIN-38" x="0" y="-750"></use></g><g transform="translate(1484,0)"><use href="#MJMAIN-32" x="389" y="650"></use><g transform="translate(0,-750)"><use href="#MJMAIN-2212" x="0" y="0"></use><use href="#MJMAIN-33" x="778" y="0"></use></g></g></g><use href="#MJSZ3-5D" x="3625" y="-1"></use></g></g></svg><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>B</mi><mo>=</mo><mrow><mo>[</mo><mtable rowspacing="4pt" columnspacing="1em"><mtr><mtd><mn>5</mn></mtd><mtd><mn>2</mn></mtd></mtr><mtr><mtd><mn>8</mn></mtd><mtd><mo>−</mo><mn>3</mn></mtd></mtr></mtable><mo>]</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-21">B = \begin{bmatrix} 5 & 2 \\ 8 & -3 \end{bmatrix}</script>.              </li>
+</ol>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/" title="Numerical Differentiation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Numerical Differentiation
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="https://www.math.ubc.ca/~pwalls/math-python/linear-algebra/solving-linear-systems/" title="Solving Linear Systems" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Solving Linear Systems
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org/">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="./Linear Algebra with SciPy - Mathematical Python_files/application.c648116f.js.download"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="./Linear Algebra with SciPy - Mathematical Python_files/jquery.min.js.download"></script>
+      
+        <script src="./Linear Algebra with SciPy - Mathematical Python_files/highlight.js.download"></script>
+      
+        <script src="./Linear Algebra with SciPy - Mathematical Python_files/extra.js.download"></script>
+      
+        <script src="./Linear Algebra with SciPy - Mathematical Python_files/MathJax.js.download"></script>
+      
+    
+  
+</body></html>
